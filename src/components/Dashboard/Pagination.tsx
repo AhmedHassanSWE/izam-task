@@ -16,7 +16,7 @@ const CustomPagination = styled(Pagination)(() => ({
 export default function PaginationRounded() {
   return (
     <Stack spacing={2}>
-      <CustomPagination count={10} variant="outlined" shape="rounded" />
+      <CustomPagination size="large" count={4} variant="outlined" shape="rounded" />
     </Stack>
   );
 }
