@@ -3,7 +3,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/system';
 
-const CustomPagination = styled(Pagination)(({ theme }) => ({
+const CustomPagination = styled(Pagination)(() => ({
   '& .MuiPaginationItem-root.Mui-selected': {
     backgroundColor: '#48A74C',
     color: '#fff',

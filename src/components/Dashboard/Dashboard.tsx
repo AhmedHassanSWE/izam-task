@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, MenuItem, Select, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import JobCard from "./JobCard";
 import JobTag from "./JobTag";
 import SortingDropdown from "../ui/CustomSelect";

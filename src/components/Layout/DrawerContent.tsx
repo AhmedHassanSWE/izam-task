@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -34,21 +34,19 @@ const DrawerContent: React.FC<DrawerContentProps> = ({ isMobile, closeDrawer, se
 
   React.useEffect(() => {
     setEditedItems(serverMenuItems);
-  }, []);
+  }, [serverMenuItems]);
 
   const toggleDropdown = (key: string): void => {
     setOpen((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   const moveItem = async (fromIndex: number, toIndex: number, parentId: string | null = null): Promise<void> => {
-    let updatedItems = [...menuItems];
+    const updatedItems = [...menuItems];
 
-    // If a parent item is being moved
     if (parentId === null) {
       const [movedItem] = updatedItems.splice(fromIndex, 1);
       updatedItems.splice(toIndex, 0, movedItem);
     } else {
-      // If a child item is being moved
       const parentIndex = updatedItems.findIndex((item) => item.id === parentId);
       const parent = updatedItems[parentIndex];
       const [movedItem] = parent.children!.splice(fromIndex, 1);

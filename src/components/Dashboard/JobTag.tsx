@@ -1,5 +1,5 @@
-import { Box, Typography, useTheme, useMediaQuery, Switch } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import React from "react";
 import CustomizedSwitches from "../ui/IOSSwitch";
 
 interface JobTagProps {
@@ -11,11 +11,6 @@ interface JobTagProps {
 function JobTag({ jobTitle, location, jobsCount }: JobTagProps) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const [checked, setChecked] = useState(false);
-
-  const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-  };
 
   return (
     <Box

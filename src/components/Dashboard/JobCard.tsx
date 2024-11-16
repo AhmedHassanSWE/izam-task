@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, CardContent, Typography, IconButton, useTheme, useMediaQuery } from "@mui/material";
+import { Box, CardContent, Typography, IconButton, useTheme, useMediaQuery } from "@mui/material";
 import { Favorite } from "@mui/icons-material";
 import Image from "next/image";
 import LocationIcon from "@/icons/LocationIcon";

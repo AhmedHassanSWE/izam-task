@@ -3,8 +3,9 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import App, { AppContext } from "next/app";
 import axios from "axios";
+import { MenuItemType } from "@/components/Layout/DrawerContent";
 
-export default function MyApp({ Component, pageProps, navData }: AppProps & { navData: any }) {
+export default function MyApp({ Component, pageProps, navData }: AppProps & { navData: MenuItemType[] }) {
   return (
     <Layout navData={navData}>
       <Component {...pageProps} />

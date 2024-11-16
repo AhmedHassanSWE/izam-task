@@ -4,9 +4,6 @@ import React, { useState } from "react";
 import MobileNavLink from "./MobileNavLink";
 import SmallHomeIcon from "@/icons/SmallHomeIcon";
 import SmallJobIcon from "@/icons/SmallJobIcon";
-import SmallEmployeesIcon from "@/icons/SmallEmployeesIcon";
-import SmallNotificationsIcon from "@/icons/SmallNotificationsIcon";
-import SmallMessagingIcon from "@/icons/SmallMessagingIcon";
 
 function MobileNavbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);

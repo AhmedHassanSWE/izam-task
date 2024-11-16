@@ -3,15 +3,29 @@ import { useDrag, useDrop } from "react-dnd";
 import { DragIndicator, EditOutlined, ExpandLess, ExpandMore, RemoveRedEyeOutlined, VisibilityOffOutlined } from "@mui/icons-material";
 import { Box, Collapse, IconButton, List, ListItem, ListItemButton, ListItemText, TextField, useMediaQuery, useTheme } from "@mui/material";
 
-type MenuItemProps = {
+export interface MenuItemType {
   id: string;
   title: string;
-  target?: string;
-  children?: MenuItemProps[];
-  visible?: boolean;
-};
+  children?: MenuItemType[];
+}
 
-function MenuItem({ item, index, moveItem, isEditMode, toggleDropdown, isOpen, parentId }: any) {
+export interface DropdownState {
+  [key: string]: boolean;
+}
+
+interface MenuItemProps {
+  item: MenuItemType;
+  index: number;
+  moveItem: (fromIndex: number, toIndex: number, parentId?: string | null) => Promise<void>;
+  isEditMode: boolean;
+  editedItems: MenuItemType[];
+  setEditedItems: React.Dispatch<React.SetStateAction<MenuItemType[]>>;
+  toggleDropdown: (key: string) => void;
+  isOpen: DropdownState;
+  parentId?: string;
+}
+
+const MenuItem: React.FC<MenuItemProps> = ({ item, index, moveItem, isEditMode, editedItems, setEditedItems, toggleDropdown, isOpen, parentId }) => {
   const [localTitle, setLocalTitle] = useState(item.title);
   const [inEditing, setInEditing] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -20,13 +34,12 @@ function MenuItem({ item, index, moveItem, isEditMode, toggleDropdown, isOpen, p
 
   const [, drag] = useDrag({
     type: "menu-item",
-    item: { index, parentId }, // Include parentId to ensure it stays within the same parent
+    item: { index, parentId },
   });
 
   const [, drop] = useDrop({
     accept: "menu-item",
-    hover: (draggedItem: any) => {
-      // Check if both items have the same parentId to restrict drag-and-drop within siblings
+    hover: (draggedItem: { index: number; parentId?: string }) => {
       if (draggedItem.parentId === parentId && draggedItem.index !== index) {
         moveItem(draggedItem.index, index, parentId);
         draggedItem.index = index;
@@ -61,7 +74,7 @@ function MenuItem({ item, index, moveItem, isEditMode, toggleDropdown, isOpen, p
           display: "flex",
           alignItems: "center",
           height: "65px",
-          width: isMobile? "100%" : "280px",
+          width: isMobile ? "100%" : "280px",
         }}
       >
         {isEditMode && (
@@ -107,7 +120,7 @@ function MenuItem({ item, index, moveItem, isEditMode, toggleDropdown, isOpen, p
         <div className="sidebar-collapse">
           <Collapse in={isOpen[item.title]} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              {item.children.map((child: any, childIndex: number) => (
+              {item.children.map((child, childIndex) => (
                 <MenuItem
                   key={child.id}
                   item={child}
@@ -117,6 +130,8 @@ function MenuItem({ item, index, moveItem, isEditMode, toggleDropdown, isOpen, p
                   toggleDropdown={toggleDropdown}
                   isOpen={isOpen}
                   parentId={item.id}
+                  editedItems={editedItems}
+                  setEditedItems={setEditedItems}
                 />
               ))}
             </List>
@@ -125,6 +140,6 @@ function MenuItem({ item, index, moveItem, isEditMode, toggleDropdown, isOpen, p
       )}
     </Box>
   );
-}
+};
 
 export default MenuItem;
