@@ -17,7 +17,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   let navData = null;
 
   try {
-    const response = await axios.get("http://localhost:8081/nav");
+    const response = await axios.get("https://zenatontaskserver.onrender.com/nav");
     navData = response.data;
   } catch (error) {
     console.error("Error fetching navigation data:", error);
