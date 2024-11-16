@@ -4,12 +4,16 @@ import type { AppProps } from "next/app";
 import App, { AppContext } from "next/app";
 import axios from "axios";
 import { MenuItemType } from "@/components/Layout/DrawerContent";
+import { DndProvider } from "react-dnd";
+import { TouchBackend } from "react-dnd-touch-backend";
 
 export default function MyApp({ Component, pageProps, navData }: AppProps & { navData: MenuItemType[] }) {
   return (
-    <Layout navData={navData}>
-      <Component {...pageProps} />
-    </Layout>
+    <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
+      <Layout navData={navData}>
+        <Component {...pageProps} />
+      </Layout>
+    </DndProvider>
   );
 }
 

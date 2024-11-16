@@ -1,9 +1,7 @@
 import React, { useRef, useState } from "react";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
 import { DragIndicator, EditOutlined, ExpandLess, ExpandMore, RemoveRedEyeOutlined, VisibilityOffOutlined } from "@mui/icons-material";
 import { Box, Collapse, IconButton, List, ListItem, ListItemButton, ListItemText, TextField, useMediaQuery, useTheme } from "@mui/material";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { TouchBackend } from "react-dnd-touch-backend";
 
 export interface MenuItemType {
   id: string;
@@ -67,82 +65,81 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, index, moveItem, isEditMode, 
   if (!isEditMode && !isVisible) return null;
 
   return (
-    <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
-      <Box ref={boxRef}>
-        <ListItem
-          sx={{
-            margin: "10px",
-            backgroundColor: "#F7F7F7",
-            borderRadius: "4px",
-            display: "flex",
-            alignItems: "center",
-            height: "65px",
-            width: isMobile ? "100%" : "280px",
-          }}
-        >
-          {isEditMode && (
-            <IconButton>
-              <DragIndicator />
-            </IconButton>
-          )}
-
-          {isEditMode ? (
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: "3px",
-                justifyContent: "space-between",
-                width: "100%",
-              }}
-            >
-              {inEditing ? (
-                <TextField value={localTitle} onChange={handleEditChange} size="small" sx={{ flex: 1 }} />
-              ) : (
-                <ListItemText sx={{ color: !isVisible ? "#ccc" : "#000" }} primary={localTitle} />
-              )}
-              <Box sx={{ display: "flex", gap: "5px" }}>
-                <EditOutlined onClick={toggleEditMode} sx={{ color: "#848484", cursor: "pointer" }} />
-                {isVisible ? (
-                  <RemoveRedEyeOutlined onClick={toggleVisibility} sx={{ color: "#848484", cursor: "pointer" }} />
-                ) : (
-                  <VisibilityOffOutlined onClick={toggleVisibility} sx={{ color: "#848484", cursor: "pointer" }} />
-                )}
-              </Box>
-            </Box>
-          ) : (
-            <ListItemButton sx={{ height: "65px", width: "280px" }} onClick={() => item.children && toggleDropdown(item.title)}>
-              <ListItemText primary={localTitle} />
-              {item.children && (isOpen[item.title] ? <ExpandLess /> : <ExpandMore />)}
-            </ListItemButton>
-          )}
-        </ListItem>
-
-        {/* Nested Items */}
-        {item.children && (
-          <div className="sidebar-collapse">
-            <Collapse in={isOpen[item.title]} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                {item.children.map((child, childIndex) => (
-                  <MenuItem
-                    key={child.id}
-                    item={child}
-                    index={childIndex}
-                    moveItem={moveItem}
-                    isEditMode={isEditMode}
-                    toggleDropdown={toggleDropdown}
-                    isOpen={isOpen}
-                    parentId={item.id}
-                    editedItems={editedItems}
-                    setEditedItems={setEditedItems}
-                  />
-                ))}
-              </List>
-            </Collapse>
-          </div>
+    <Box ref={boxRef}>
+      <ListItem
+        sx={{
+          margin: "10px",
+          backgroundColor: "#F7F7F7",
+          borderRadius: "4px",
+          display: "flex",
+          alignItems: "center",
+          height: "65px",
+          width: isMobile ? "100%" : "280px",
+        }}
+      >
+        {isEditMode && (
+          <IconButton>
+            <DragIndicator />
+          </IconButton>
         )}
-      </Box>
-    </DndProvider>
+
+        {isEditMode ? (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "3px",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            {inEditing ? (
+              <TextField value={localTitle} onChange={handleEditChange} size="small" sx={{ flex: 1 }} />
+            ) : (
+              <ListItemText sx={{ color: !isVisible ? "#ccc" : "#000" }} primary={localTitle} />
+            )}
+            <Box sx={{ display: "flex", gap: "5px" }}>
+              <EditOutlined onClick={toggleEditMode} sx={{ color: "#848484", cursor: "pointer" }} />
+              {isVisible ? (
+                <RemoveRedEyeOutlined onClick={toggleVisibility} sx={{ color: "#848484", cursor: "pointer" }} />
+              ) : (
+                <VisibilityOffOutlined onClick={toggleVisibility} sx={{ color: "#848484", cursor: "pointer" }} />
+              )}
+            </Box>
+          </Box>
+        ) : (
+          <ListItemButton sx={{ height: "65px", width: "280px" }} onClick={() => item.children && toggleDropdown(item.title)}>
+            <ListItemText primary={localTitle} />
+            {item.children && (isOpen[item.title] ? <ExpandLess /> : <ExpandMore />)}
+          </ListItemButton>
+        )}
+      </ListItem>
+
+      {/* Nested Items */}
+      {item.children && (
+        <div className="sidebar-collapse">
+          <Collapse in={isOpen[item.title]} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              {item.children.map((child, childIndex) => (
+                <MenuItem
+                  key={child.id}
+                  item={child}
+                  index={childIndex}
+                  moveItem={moveItem}
+                  isEditMode={isEditMode}
+                  toggleDropdown={toggleDropdown}
+                  isOpen={isOpen}
+                  parentId={item.id}
+                  editedItems={editedItems}
+                  setEditedItems={setEditedItems}
+                />
+              ))}
+            </List>
+          </Collapse>
+        </div>
+      )}
+    </Box>
   );
 };
+// 
 export default MenuItem;
