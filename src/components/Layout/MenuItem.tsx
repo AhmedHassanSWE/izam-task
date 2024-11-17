@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { DragIndicator, EditOutlined, ExpandLess, ExpandMore, RemoveRedEyeOutlined, VisibilityOffOutlined } from "@mui/icons-material";
 import { Box, Collapse, IconButton, List, ListItem, ListItemButton, ListItemText, TextField, useMediaQuery, useTheme } from "@mui/material";
@@ -39,6 +39,14 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, index, moveItem, isEditMode, 
   const boxRef = useRef(null);
   drag(drop(boxRef));
 
+  useEffect(() => {
+    // Retrieve visibility state from localStorage
+    const storedVisibility = localStorage.getItem(`menu-item-visibility-${item.id}`);
+    if (storedVisibility !== null) {
+      setIsVisible(storedVisibility === "true");
+    }
+  }, [item.id]);
+
   const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocalTitle(e.target.value);
   };
@@ -48,7 +56,12 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, index, moveItem, isEditMode, 
   };
 
   const toggleVisibility = () => {
-    setIsVisible((prev) => !prev);
+    setIsVisible((prev) => {
+      const newVisibility = !prev;
+      // Save visibility state to localStorage
+      localStorage.setItem(`menu-item-visibility-${item.id}`, newVisibility.toString());
+      return newVisibility;
+    });
   };
 
   if (!isEditMode && !isVisible) return null;
@@ -130,5 +143,5 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, index, moveItem, isEditMode, 
     </Box>
   );
 };
-//
+
 export default MenuItem;
