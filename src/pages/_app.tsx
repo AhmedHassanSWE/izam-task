@@ -18,7 +18,7 @@ export default function MyApp({ Component, pageProps, navData }: AppProps & { na
 }
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
-  let navData = null;
+  let navData = [];
 
   try {
     const response = await axios.get("https://zenatontaskserver.onrender.com/nav");
