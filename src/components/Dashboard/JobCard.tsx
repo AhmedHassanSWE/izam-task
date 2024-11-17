@@ -70,7 +70,7 @@ const JobCard: React.FC<JobCardProps> = ({ title, company, location, posted, exp
                 <CalendarIcon /> {posted}
               </Box>
             </Typography>
-            <Typography display="flex" gap={1} variant="body2" fontSize={isMobile ? 11 : 17} marginTop={3}>
+            <Typography display="flex" gap={1} flexWrap="wrap" variant="body2" fontSize={isMobile ? 11 : 17} marginTop={3}>
               <Box component="span" className="job-type">
                 {experience}
               </Box>
