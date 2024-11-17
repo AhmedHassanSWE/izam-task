@@ -14,7 +14,7 @@ function JobTag({ jobTitle, location, jobsCount }: JobTagProps) {
 
   return (
     <Box
-      padding={isMobile ? "10px 20px" : "20px 40px"} // Adjust padding for mobile
+      padding={isMobile ? "5px 20px" : "20px 40px"}
       sx={{
         background: "#3D8E41",
         borderRadius: "5px",
@@ -45,7 +45,7 @@ function JobTag({ jobTitle, location, jobsCount }: JobTagProps) {
             {jobsCount} job positions
           </Typography>
         </Box>
-        <Box display="flex" alignItems="center" marginTop={isMobile? -1.5 : 0}>
+        <Box display="flex" alignItems="center" >
           <Typography fontSize={isMobile ? 11 : 16} color="#fff" marginRight={1}>
             Job Alert
           </Typography>

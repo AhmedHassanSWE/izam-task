@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
   const visibleJobs = jobList.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   return (
-    <Box>
+    <Box paddingBottom={4}>
       <Box sx={{ display: isMobile ? "none" : "flex", alignItems: "center", justifyContent: "flex-end", mt: 4, mb: 3 }}>
         <SortingDropdown />
       </Box>
