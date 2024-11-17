@@ -2,6 +2,7 @@ import React from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/system";
+import { PaginationRoundedProps } from "@/models/Pagination";
 
 const CustomPagination = styled(Pagination)(() => ({
   "& .MuiPaginationItem-root.Mui-selected": {
@@ -12,11 +13,6 @@ const CustomPagination = styled(Pagination)(() => ({
     },
   },
 }));
-
-interface PaginationRoundedProps {
-  count: number;
-  onChange: (event: React.ChangeEvent<unknown>, page: number) => void;
-}
 
 const PaginationRounded: React.FC<PaginationRoundedProps> = ({ count, onChange }) => {
   return (

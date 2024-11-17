@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { DragIndicator, EditOutlined, ExpandLess, ExpandMore, RemoveRedEyeOutlined, VisibilityOffOutlined } from "@mui/icons-material";
 import { Box, Collapse, IconButton, List, ListItem, ListItemButton, ListItemText, TextField, useMediaQuery, useTheme } from "@mui/material";
+import { MenuItemProps } from "@/models/MenuItems";
 
 export interface MenuItemType {
   id: string;
@@ -11,18 +12,6 @@ export interface MenuItemType {
 
 export interface DropdownState {
   [key: string]: boolean;
-}
-
-interface MenuItemProps {
-  item: MenuItemType;
-  index: number;
-  moveItem: (fromIndex: number, toIndex: number, parentId?: string | null) => Promise<void>;
-  isEditMode: boolean;
-  editedItems: MenuItemType[];
-  setEditedItems: React.Dispatch<React.SetStateAction<MenuItemType[]>>;
-  toggleDropdown: (key: string) => void;
-  isOpen: DropdownState;
-  parentId?: string;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({ item, index, moveItem, isEditMode, editedItems, setEditedItems, toggleDropdown, isOpen, parentId }) => {
@@ -141,5 +130,5 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, index, moveItem, isEditMode, 
     </Box>
   );
 };
-// 
+//
 export default MenuItem;

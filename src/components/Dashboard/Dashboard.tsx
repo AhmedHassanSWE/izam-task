@@ -4,17 +4,7 @@ import JobCard from "./JobCard";
 import JobTag from "./JobTag";
 import SortingDropdown from "../ui/CustomSelect";
 import PaginationRounded from "./Pagination";
-
-const jobList = Array.from({ length: 20 }, (_, i) => ({
-  title: `Job Title ${i + 1}`,
-  company: `Company ${i + 1}`,
-  location: `City ${i + 1}`,
-  posted: `${i + 1} days ago`,
-  experience: `${i % 3} - ${i % 5}y of exp`,
-  jobType: "Full time",
-  workType: i % 2 === 0 ? "Remote" : "Hybrid",
-  category: "Category",
-}));
+import { jobList } from "@/models/JobCard";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -43,10 +33,7 @@ const Dashboard: React.FC = () => {
         ))}
       </Box>
       <Box display="flex" justifyContent="center">
-        <PaginationRounded
-          count={Math.ceil(jobList.length / ITEMS_PER_PAGE)}
-          onChange={handlePageChange}
-        />
+        <PaginationRounded count={Math.ceil(jobList.length / ITEMS_PER_PAGE)} onChange={handlePageChange} />
       </Box>
     </Box>
   );

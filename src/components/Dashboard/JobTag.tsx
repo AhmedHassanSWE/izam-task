@@ -1,12 +1,7 @@
 import React from "react";
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import CustomizedSwitches from "../ui/IOSSwitch";
-
-interface JobTagProps {
-  jobTitle: string;
-  location: string;
-  jobsCount: number;
-}
+import { JobTagProps } from "@/models/JobTag";
 
 const JobTag: React.FC<JobTagProps> = ({ jobTitle, location, jobsCount }) => {
   const theme = useTheme();

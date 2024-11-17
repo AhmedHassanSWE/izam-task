@@ -4,18 +4,7 @@ import { Favorite } from "@mui/icons-material";
 import Image from "next/image";
 import LocationIcon from "@/icons/LocationIcon";
 import CalendarIcon from "@/icons/CalendarIcon";
-
-interface JobCardProps {
-  title: string;
-  company: string;
-  location: string;
-  posted: string;
-  experience: string;
-  jobType: string;
-  workType: string;
-  category: string;
-  focused?: boolean;
-}
+import { JobCardProps } from "@/models/JobCard";
 
 const JobCard: React.FC<JobCardProps> = ({ title, company, location, posted, experience, jobType, workType, category, focused }) => {
   const theme = useTheme();
