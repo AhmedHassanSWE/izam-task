@@ -16,7 +16,6 @@ function MobileNavbar() {
     <div>
       <AppBar
         sx={{
-          //   zIndex: (theme) => theme.zIndex.drawer + 1,
           backgroundColor: "#161616",
           height: 98,
           display: "flex",
@@ -28,36 +27,43 @@ function MobileNavbar() {
         }}
       >
         <Box onClick={toggleDrawer} display="flex">
-          {/* Avatar Box - clicking will trigger the Drawer */}
           <IconButton>
             <Avatar alt="Remy Sharp" src="/images/user.jpeg" sx={{ height: "42px", width: "42px" }} />
           </IconButton>
-          <Menu sx={{ marginTop: "25px", marginLeft: "-20px", zIndex: 2, backgroundColor: "#eee", borderRadius: "50%", padding: "3px", color: "#555" }} />
+          <Menu
+            sx={{
+              marginTop: "25px",
+              marginLeft: "-20px",
+              zIndex: 2,
+              backgroundColor: "#eee",
+              borderRadius: "50%",
+              padding: "3px",
+              color: "#555",
+            }}
+          />
         </Box>
         <Typography fontSize={24} variant="h3">
           i<span style={{ color: "#48A74C" }}>Z</span>AM
         </Typography>
       </AppBar>
 
-      {/* Full-screen Drawer */}
       <Drawer
         anchor="left"
         open={drawerOpen}
         onClose={toggleDrawer}
         sx={{
-          width: "100%", // Full screen width
+          width: "100%",
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: "80%", // Full screen width
-            height: "100%", // Full screen height
+            width: "80%",
+            height: "100%",
             position: "absolute",
             top: 0,
             right: 0,
-            backgroundColor: "#f4f4f4", // Customize the background
+            backgroundColor: "#f4f4f4",
           },
         }}
       >
-        {/* Content for Drawer */}
         <Box sx={{ p: 2 }}>
           <Box>
             <Box display="flex" padding="15px 15px" gap="20px">

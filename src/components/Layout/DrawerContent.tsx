@@ -30,9 +30,6 @@ const DrawerContent: React.FC<DrawerContentProps> = ({ isMobile, closeDrawer, se
 
   React.useEffect(() => {
     setMenuItems(serverMenuItems);
-  }, [serverMenuItems]);
-
-  React.useEffect(() => {
     setEditedItems(serverMenuItems);
   }, [serverMenuItems]);
 

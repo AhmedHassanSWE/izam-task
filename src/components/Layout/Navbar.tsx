@@ -1,13 +1,6 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import Avatar from "@mui/material/Avatar";
+import React, { useState } from "react";
+import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Avatar, Divider, OutlinedInput } from "@mui/material";
 import { ArrowDropDown, Search } from "@mui/icons-material";
-import { Divider, OutlinedInput } from "@mui/material";
 import NavbarLink from "./NavbarLink";
 import HomeIcon from "@/icons/HomeIcon";
 import JobIcon from "@/icons/JobIcon";
@@ -16,7 +9,8 @@ import NotificationIcon from "@/icons/NotificationIcon";
 import MessagingIcon from "@/icons/MessagingIcon";
 
 function Navbar() {
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -24,6 +18,7 @@ function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
   return (
     <AppBar
       position="fixed"
@@ -38,29 +33,47 @@ function Navbar() {
           <Typography variant="h3">
             i<span style={{ color: "#48A74C" }}>Z</span>AM
           </Typography>
-          <Box display="flex" alignItems="center" marginLeft="50px">
-            <Search sx={{ backgroundColor: "green", zIndex: 100, height: "47px", width: "47px", borderRadius: "50%", padding: "10px" }} />
+          <Box display="flex" alignItems="center" ml={5}>
+            <Search
+              sx={{
+                backgroundColor: "green",
+                zIndex: 100,
+                height: "47px",
+                width: "47px",
+                borderRadius: "50%",
+                p: "10px",
+              }}
+            />
             <OutlinedInput
               size="small"
-              sx={{ marginLeft: "-55px", background: "#fff", borderRadius: "47px", height: 61, width: "350px", paddingLeft: "55px", fontSize: "20px" }}
+              sx={{
+                ml: "-55px",
+                backgroundColor: "#fff",
+                borderRadius: "47px",
+                height: 61,
+                width: "350px",
+                pl: "55px",
+                fontSize: "20px",
+              }}
               placeholder="Search by name, job title, ..."
             />
           </Box>
         </Box>
-        <Box display="flex" gap="40px">
+
+        <Box display="flex" gap={5}>
           <NavbarLink icon={<HomeIcon />} label="Home" />
           <NavbarLink icon={<JobIcon />} label="Jobs" />
           <NavbarLink icon={<EmployeesIcon />} label="Employers" />
-          <Box height="55px" width="2px" sx={{ background: `rgba(214, 214, 214, 0.60)` }} />
+          <Box height="55px" width="2px" sx={{ backgroundColor: "rgba(214, 214, 214, 0.60)" }} />
           <NavbarLink icon={<NotificationIcon />} label="Notifications" />
           <NavbarLink icon={<MessagingIcon />} label="Messaging" />
           <Box sx={{ flexGrow: 0, cursor: "pointer" }}>
             <Box onClick={handleOpenUserMenu} display="flex" flexDirection="column" alignItems="center">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, height: "38px", width: "38px" }}>
+              <IconButton sx={{ p: 0, height: 38, width: 38 }}>
                 <Avatar alt="Remy Sharp" src="/images/user.jpeg" />
               </IconButton>
               <Typography display="flex" alignItems="center">
-                Profile <ArrowDropDown />{" "}
+                Profile <ArrowDropDown />
               </Typography>
             </Box>
             <Menu
@@ -80,8 +93,8 @@ function Navbar() {
               onClose={handleCloseUserMenu}
             >
               <Box>
-                <Box display="flex" padding="15px 30px" gap="20px">
-                  <Avatar alt="Remy Sharp" src="/images/user.jpeg" sx={{ height: "50px", width: "50px" }} />
+                <Box display="flex" p={2} gap={2}>
+                  <Avatar alt="Remy Sharp" src="/images/user.jpeg" sx={{ height: 50, width: 50 }} />
                   <Box>
                     <Typography color="#555" fontWeight={700}>
                       Ahmed Hassan
@@ -90,13 +103,13 @@ function Navbar() {
                   </Box>
                 </Box>
                 <Divider />
-                <Box padding="10px 30px">
+                <Box p={2}>
                   <Typography color="#555">Settings and privacy</Typography>
                   <Typography color="#555">Language</Typography>
                   <Typography color="#555">Help</Typography>
                 </Box>
                 <Divider />
-                <Box padding="15px 30px">
+                <Box p={2}>
                   <Typography color="red">Logout</Typography>
                 </Box>
               </Box>
@@ -107,4 +120,5 @@ function Navbar() {
     </AppBar>
   );
 }
+
 export default Navbar;
