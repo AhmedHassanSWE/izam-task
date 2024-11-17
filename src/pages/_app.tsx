@@ -21,7 +21,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   let navData = [];
 
   try {
-    const response = await axios.get("https://izam-server.vercel.app/nav");
+    const response = await axios.get("https://zenatontaskserver.onrender.com/nav");
     navData = response.data;
   } catch (error) {
     console.error("Error fetching navigation data:", error);

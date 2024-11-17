@@ -56,7 +56,7 @@ const DrawerContent: React.FC<DrawerContentProps> = ({ isMobile, closeDrawer, se
 
   const handleEditSubmit = async (): Promise<void> => {
     try {
-      await axios.post("https://izam-server.vercel.app/nav", editedItems);
+      await axios.post("https://zenatontaskserver.onrender.com/nav", editedItems);
       setMenuItems(editedItems);
       setIsEditMode(false);
     } catch (error) {
