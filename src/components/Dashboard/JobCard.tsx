@@ -23,6 +23,7 @@ const JobCard: React.FC<JobCardProps> = ({ title, company, location, posted, exp
     width: isMobile ? "27.5px" : "55px",
     borderColor: "#C4C3C3",
     borderWidth: "1px",
+    borderStyle: "solid",
     background: "#fff",
   };
 
