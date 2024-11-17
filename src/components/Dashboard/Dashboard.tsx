@@ -39,7 +39,7 @@ const Dashboard: React.FC = () => {
 
       <Box>
         {visibleJobs.map((job, index) => (
-          <JobCard key={index} {...job} />
+          <JobCard focused={index === 0} key={index} {...job} />
         ))}
       </Box>
       <Box display="flex" justifyContent="center">
