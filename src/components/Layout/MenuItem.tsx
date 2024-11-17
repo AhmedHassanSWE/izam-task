@@ -3,7 +3,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { DragIndicator, EditOutlined, ExpandLess, ExpandMore, RemoveRedEyeOutlined, VisibilityOffOutlined } from "@mui/icons-material";
 import { Box, Collapse, IconButton, List, ListItem, ListItemButton, ListItemText, TextField, useMediaQuery, useTheme } from "@mui/material";
 import { MenuItemProps } from "@/models/MenuItems";
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 export interface MenuItemType {
   id: string;
@@ -22,7 +22,6 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, index, moveItem, isEditMode, 
   const [isVisible, setIsVisible] = useState(true);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const router = useRouter();
 
   const [, drag] = useDrag({
     type: "menu-item",
@@ -112,14 +111,18 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, index, moveItem, isEditMode, 
               )}
             </Box>
           </Box>
-        ) : (
-          <ListItemButton
-            sx={{ height: "65px", width: "280px" }}
-            onClick={() => (item.children ? toggleDropdown(item.title) : router.push(item.target || "/"))}
-          >
+        ) : item.children ? (
+          <ListItemButton sx={{ height: "65px", width: "280px" }} onClick={() => toggleDropdown(item.title)}>
             <ListItemText primary={localTitle} />
             {item.children && (isOpen[item.title] ? <ExpandLess /> : <ExpandMore />)}
           </ListItemButton>
+        ) : (
+          <Link href={item.target || "/"}>
+            <ListItemButton sx={{ height: "65px", width: "280px" }}>
+              <ListItemText primary={localTitle} />
+              {item.children && (isOpen[item.title] ? <ExpandLess /> : <ExpandMore />)}
+            </ListItemButton>
+          </Link>
         )}
       </ListItem>
 
