@@ -3,11 +3,13 @@ import { useDrag, useDrop } from "react-dnd";
 import { DragIndicator, EditOutlined, ExpandLess, ExpandMore, RemoveRedEyeOutlined, VisibilityOffOutlined } from "@mui/icons-material";
 import { Box, Collapse, IconButton, List, ListItem, ListItemButton, ListItemText, TextField, useMediaQuery, useTheme } from "@mui/material";
 import { MenuItemProps } from "@/models/MenuItems";
+import { useRouter } from "next/router";
 
 export interface MenuItemType {
   id: string;
   title: string;
   children?: MenuItemType[];
+  target?: string;
 }
 
 export interface DropdownState {
@@ -20,6 +22,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, index, moveItem, isEditMode, 
   const [isVisible, setIsVisible] = useState(true);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const router = useRouter();
 
   const [, drag] = useDrag({
     type: "menu-item",
@@ -110,7 +113,10 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, index, moveItem, isEditMode, 
             </Box>
           </Box>
         ) : (
-          <ListItemButton sx={{ height: "65px", width: "280px" }} onClick={() => item.children && toggleDropdown(item.title)}>
+          <ListItemButton
+            sx={{ height: "65px", width: "280px" }}
+            onClick={() => (item.children ? toggleDropdown(item.title) : router.push(item.target || "/"))}
+          >
             <ListItemText primary={localTitle} />
             {item.children && (isOpen[item.title] ? <ExpandLess /> : <ExpandMore />)}
           </ListItemButton>
@@ -120,7 +126,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, index, moveItem, isEditMode, 
       {/* Nested Items */}
       {item.children && (
         <div className="sidebar-collapse">
-          <Collapse in={isOpen[item.title]} timeout="auto" unmountOnExit>
+          <Collapse in={isOpen[item.title] || isEditMode} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {item.children.map((child, childIndex) => (
                 <MenuItem
